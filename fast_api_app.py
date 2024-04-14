@@ -6,10 +6,21 @@ app = FastAPI()
 
 # path parameter
 @app.get("/item/{id}")
-async def item_id(id):
+async def item_id(id: int):
     return {"message": f"This item_id is {id}"}
 
 
+# query parameter
+@app.get("/user/product")
+async def product(id: int, price: int, name: str | None = None):
+    if name:
+        return {"message": f"The product_id is {id} and it's price is {price} , brand name is {name} "}
+
+    else:
+        return {"message": f"The product_id is {id} and it's price is {price}"}
+
+
+# request body parameter
 @app.post("/product")
 async def item_details(item: Item):
     item_new_key = item.dict()
